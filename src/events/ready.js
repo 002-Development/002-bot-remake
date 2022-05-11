@@ -36,6 +36,8 @@ module.exports = async (client) => {
     }
   })();
 
+  client.embeds();
+
   client.user.setPresence({
     activities: [{ name: `${process.env.STATUSBOT}` }],
     status: "dnd",

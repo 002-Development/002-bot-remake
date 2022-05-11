@@ -1,4 +1,4 @@
-const { Client, Collection } = require('discord.js');
+const { Client, Collection, MessageEmbed } = require('discord.js');
 const { readdirSync, readdir } = require("fs");
 const { ChalkAdvanced } = require('chalk-advanced');
 
@@ -50,8 +50,15 @@ module.exports = class ZeroTwo_Client extends Client {
           files.forEach((file) => {
             const event = require(`../events/${file}`);
             let eventName = file.split(".")[0];
-            this.on(eventName, event.bind(this));
+            this.on(eventName, event.bind(null, this));
           });
         });
+    };
+
+    embeds() {
+        this.embeds = {
+            default: new MessageEmbed().setAuthor({ name: `${this.user.username}`, iconURL: this.user.avatarURL() }).setColor('#5865f4').setTimestamp(),
+            error: new MessageEmbed().setAuthor({ name: `${this.user.username}`, iconURL: this.user.avatarURL() }).setColor('ff4d4d').setTimestamp(),
+        }
     };
 }

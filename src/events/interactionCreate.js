@@ -1,6 +1,6 @@
 const { readdirSync } = require("fs");
 
-module.exports = (interaction) => {
+module.exports = (client, interaction) => {
   if (interaction.isCommand()) {
     const command = client.commands.get(interaction.commandName);
 
@@ -11,7 +11,7 @@ module.exports = (interaction) => {
     } catch (err) {
       if (err) console.error(err);
       interaction.reply({
-        content: "An error occurred while executing that command.",
+        embeds: [client.embeds.error.setDescription('An error occurred while executing that command.')],
         ephemeral: true,
       });
     }

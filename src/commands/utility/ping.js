@@ -7,18 +7,15 @@ module.exports = {
     .setDescription("Returns the bot's ping status"),
 
   async execute(interaction, client) {
-    const pingembed = new MessageEmbed()
-
-      .setColor("#5865f4")
-      .setTitle(":ping_pong:  Pong!")
-      .addFields(
-        {
-          name: "**Api** latency",
-          value: `> **${Math.round(client.ws.ping)}**ms`,
-          inline: false,
-        }
-      )
-      .setTimestamp();
+    const pingembed = client.embeds.default
+    .setTitle(":ping_pong:  Pong!")
+    .addFields(
+      {
+        name: "**Api** latency",
+        value: `> **${Math.round(client.ws.ping)}**ms`,
+        inline: false,
+      }
+    )
 
     await interaction.reply({
       embeds: [pingembed]

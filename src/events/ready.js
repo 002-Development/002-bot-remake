@@ -1,26 +1,16 @@
 const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
-const { readdirSync } = require("fs");
+const { Routes } = require("discord-api-types/v10");
+const { ChalkAdvanced } = require('chalk-advanced');
+
 require("dotenv").config();
-const { ChalkAdvanced } = require("chalk-advanced");
 
 module.exports = async (client) => {
-  const commandFiles = readdirSync("./src/commands/").filter((file) =>
-    file.endsWith(".js")
-  );
-
-  const commands = [];
-
-  for (const file of commandFiles) {
-    const command = require(`../commands/${file}`);
-    commands.push(command.data.toJSON());
-    client.commands.set(command.data.name, command);
-  }
+  const commands = client.commands.map(cmd => cmd.data.toJSON());
 
   const CLIENT_ID = client.user.id;
 
   const rest = new REST({
-    version: "9",
+    version: "10",
   }).setToken(process.env.TOKEN);
 
   (async () => {
@@ -45,8 +35,13 @@ module.exports = async (client) => {
       if (err) console.error(err);
     }
   })();
+
+  client.embeds();
+
   client.user.setPresence({
     activities: [{ name: `${process.env.STATUSBOT}` }],
     status: "dnd",
   });
+
+  console.log(ChalkAdvanced.blue('[BOT] Ready.'));
 };

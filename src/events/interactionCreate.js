@@ -11,7 +11,7 @@ module.exports = (client, interaction) => {
     } catch (err) {
       if (err) console.error(err);
       interaction.reply({
-        embeds: [client.embeds.error.setDescription('An error occurred while executing that command.')],
+        embeds: [new client.embeds.error(client).setDescription('An error occurred while executing that command.')],
         ephemeral: true,
       });
     }

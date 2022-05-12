@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -7,15 +6,9 @@ module.exports = {
     .setDescription("Returns the bot's ping status"),
 
   async execute(interaction, client) {
-    const pingembed = client.embeds.default
+    const pingembed = new client.embeds.default(client)
     .setTitle(":ping_pong:  Pong!")
-    .addFields(
-      {
-        name: "**Api** latency",
-        value: `> **${Math.round(client.ws.ping)}**ms`,
-        inline: false,
-      }
-    )
+    .addField("**Api** latency", `> **${Math.round(client.ws.ping)}**ms`, false)
 
     await interaction.reply({
       embeds: [pingembed]

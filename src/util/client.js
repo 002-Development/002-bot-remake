@@ -11,7 +11,7 @@ module.exports = class ZeroTwo_Client extends Client {
         this.commands = new Collection();
 
         /* Loading the database */
-        // this.loadDatabase()
+        this.loadDatabase()
         /* Loading the commands */
         this.loadCommands()
         /* Loading the events */

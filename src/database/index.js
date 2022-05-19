@@ -14,12 +14,12 @@ module.exports = async (client) => {
     /* If exists a Connection load Database Models */
 
     if(dbConnection && dbConnection.connection.readyState == 1) {
-        console.log(ChalkAdvanced.red("[DB] Connected."));
+        console.log(ChalkAdvanced.cyan("[DB] Connected."));
       
         client.database = {
             example: require('./models/example'),
         };
       
-        if(client.database.example) console.log(chalk.red("[DB][MODEL] Loaded example."));
+        if(client.database.example) console.log(ChalkAdvanced.cyan("[DB][MODEL] Loaded example."));
     };
 }
